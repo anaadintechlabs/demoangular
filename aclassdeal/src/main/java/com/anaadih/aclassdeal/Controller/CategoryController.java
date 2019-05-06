@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.anaadih.aclassdeal.Model.CategoryModel;
+import com.anaadih.aclassdeal.Service.AttributeService;
 import com.anaadih.aclassdeal.Service.CategoryService;
+import com.anaadih.aclassdeal.Service.SubCategoryService;
 import com.anaadih.aclassdeal.util.CommonResponseSender;
 
 @RestController
@@ -28,6 +30,11 @@ public class CategoryController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private SubCategoryService subCategoryService; 
+	
+	@Autowired
+	private AttributeService attributeService; 
 	@RequestMapping(value="/saveCategory",method=RequestMethod.POST)
 	public Map<String,Object> saveCategory(@RequestBody @Valid CategoryModel category,Errors errors,HttpServletRequest request,HttpServletResponse response)
 	{
@@ -57,6 +64,19 @@ public class CategoryController {
 		
 	}
 	
+	
+	@RequestMapping(value="/getAllSubCategoryAndAttributeOfCategoryCode",method=RequestMethod.GET)
+	public Map<String,Object> getAllSubCategoryAndAttributeOfCategoryCode(@RequestParam(value="limit")int limit,
+			@RequestParam(value="offset")int offset,
+			@RequestParam(value="catCode") String catCode,
+			HttpServletRequest request,HttpServletResponse response)
+	{
+		final HashMap<String, Object> map = new HashMap<>();
+		map.put("subCategoryList", subCategoryService.getAllSubCategoryOfCategory(limit,offset,catCode));
+		map.put("attributeList", attributeService.getAllAttributeOfCategoryCode(limit,offset,catCode));
+		return CommonResponseSender.createdSuccessResponse(map, response);
+		
+	}
 	
 
 	
