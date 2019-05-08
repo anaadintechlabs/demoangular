@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 public class AttributeModel {
@@ -17,8 +19,10 @@ public class AttributeModel {
 	@ManyToOne
 	private CategoryModel parentCategory;
 	
+	@NotBlank
 	private String attributeName;
 	
+	@Size(min=5,max=20)
 	private String attributeType;
 	
 	private String attributeValue;

@@ -43,6 +43,7 @@ public class SubCategoryModel {
 	public void addDates() {
 		this.setCreatedDate(new Date());
 		this.setModifiedDate(new Date());
+		this.setStatus("ACTIVE");
 	}
 	@PreUpdate
 	public void updateDate() {

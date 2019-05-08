@@ -28,6 +28,8 @@ public class CategoryModel {
 	
 	private boolean isInUse;
 	
+	private boolean allowBidding;
+	
 	private Date createdDate;
 	
 	private Date modifiedDate;
@@ -38,6 +40,7 @@ public class CategoryModel {
 	public void create() {
 		this.setCreatedDate(new Date());
 		this.setModifiedDate(new Date());	
+		this.setStatus("ACTIVE");
 	}
 
 	@PreUpdate
@@ -46,6 +49,15 @@ public class CategoryModel {
 	}
 
 	
+	
+	
+	public boolean isAllowBidding() {
+		return allowBidding;
+	}
+
+	public void setAllowBidding(boolean allowBidding) {
+		this.allowBidding = allowBidding;
+	}
 
 	public String getCatCode() {
 		return catCode;

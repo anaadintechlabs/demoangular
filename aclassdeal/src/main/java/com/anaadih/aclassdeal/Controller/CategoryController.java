@@ -60,6 +60,7 @@ public class CategoryController {
 		final HashMap<String, Object> map = new HashMap<>();
 
 		map.put("categoryList", categoryService.getAllCategories(limit,offset));
+
 		return CommonResponseSender.createdSuccessResponse(map, response);
 		
 	}
