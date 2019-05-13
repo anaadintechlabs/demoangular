@@ -4,8 +4,11 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.stereotype.Service;
+
 import com.anaadih.aclassdeal.Model.ReportedAdsModel;
 
+@Service
 public interface ReportedAidService {
 
 	ReportedAdsModel saveAdds(@Valid ReportedAdsModel rAds);

@@ -11,6 +11,6 @@ import com.anaadih.aclassdeal.Model.ProductattributeMapping;
 @Repository
 public interface ProductAttributeRepository extends PagingAndSortingRepository<ProductattributeMapping,Long>{
 
-	List<ProductattributeMapping> findByProdidAndUserid(String prodId, String userId);
+	List<ProductattributeMapping> findByProdIdAndUserId(String prodId, String userId);
 
 }

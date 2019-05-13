@@ -17,8 +17,4 @@ public interface productService {
 	List<ProductModel> getAllProducts(int limit, int offset);
 
 	ProductModel getProductById(long prodId);
-
-	List<ProductModel> getAllPendingProducts(int limit, int offset);
-
-	void approveProduct(List<String> ids);
 }

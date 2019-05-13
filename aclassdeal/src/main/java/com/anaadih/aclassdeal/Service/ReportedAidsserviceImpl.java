@@ -10,11 +10,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.stereotype.Service;
 
 import com.anaadih.aclassdeal.Model.ProductModel;
 import com.anaadih.aclassdeal.Model.ReportedAdsModel;
 import com.anaadih.aclassdeal.Repository.ReportedAidsRepository;
 
+@Service
 public class ReportedAidsserviceImpl implements ReportedAidService {
 
 	@Autowired 
@@ -37,7 +39,7 @@ public class ReportedAidsserviceImpl implements ReportedAidService {
 	}
 	@Override
 	public List<ReportedAdsModel> getallAds(int limit,int offset) {
-		Page<ReportedAdsModel> page = reportedAids.findByStatus(false);
+		Page<ReportedAdsModel> page = reportedAids.findAll(new PageRequest(offset, limit, new Sort(Direction.ASC,"modifiedDate")));
 		return page.getContent();
 	}
 

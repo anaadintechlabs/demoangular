@@ -52,6 +52,7 @@ public class SecurityConfig	extends WebSecurityConfigurerAdapter  {
 	        return new BCryptPasswordEncoder();
 	    }
 	 
+	 //Till now we have enable every api
 	 @Override
 	    protected void configure(HttpSecurity http) throws Exception {
 	        http
@@ -66,7 +67,7 @@ public class SecurityConfig	extends WebSecurityConfigurerAdapter  {
 	                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 	                    .and()
 	                .authorizeRequests()
-	                    .antMatchers("/","/api/getAllAttributeOfCategoryCode",
+	                    .antMatchers("/","/api/*",
 	                        "/favicon.ico",
 	                        "/**/*.png",
 	                        "/**/*.gif",

@@ -34,15 +34,6 @@ public class ReportedAidsControloler {
 	@Autowired 
 	private productService productService;
 	
-	/**
-	 * method for user to report particular add
-	 * @param rAds
-	 * @param errors
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	
 	@RequestMapping(value="/addReportedAids",method=RequestMethod.POST)
 	public Map<String,Object> addReportedAids(@RequestBody @Valid ReportedAdsModel rAds,Errors errors,HttpServletRequest request,HttpServletResponse response)
 	{
@@ -56,15 +47,6 @@ public class ReportedAidsControloler {
 		return CommonResponseSender.createdSuccessResponse(map, response);
 	}
 	
-	/**
-	 * method for admin to block add
-	 * @param reportedId
-	 * @param errors
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	
 	@RequestMapping(value="/blockAdd",method=RequestMethod.POST)
 	public Map<String,Object> blockAdd(@RequestParam(value="reportedId")String reportedId,Errors errors,HttpServletRequest request,HttpServletResponse response)
 	{
@@ -76,25 +58,13 @@ public class ReportedAidsControloler {
 		}
 		ReportedAdsModel model = reportedService.blockAdds(Long.parseLong(reportedId));
 		map.put("Adds", model);
-		ProductModel product = productService.getProductById(model.getProdID().getProdID());
+		ProductModel product = productService.getProductById(model.getProdID().getProdId());
 		product.setReported(true);
-		product.setInUse(false);
 		productService.saveProduct(product);
 		return CommonResponseSender.createdSuccessResponse(map, response);
 	}
 	
-	/**
-	 * method to get all reported adds
-	 * @param limit
-	 * @param offset
-	 * @param errors
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	
-	
-	@RequestMapping(value="/getallAds",method=RequestMethod.POST)
+	@RequestMapping(value="/getallAds",method=RequestMethod.GET)
 	public Map<String,Object> getallAds(@RequestParam(value="limit")int limit,
 			@RequestParam(value="offset")int offset,Errors errors,HttpServletRequest request,HttpServletResponse response)
 	{

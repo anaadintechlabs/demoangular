@@ -48,7 +48,7 @@ public class ProductattributeMappingController {
 		{
 			return (Map<String, Object>) map.put("error", "Something went wrong");
 		}
-		map.put("mappings", productattrService.saveMapping(Long.parseLong(prodId),mappings,userId));
+		map.put("mappings", productattrService.saveMapping(Integer.parseInt(prodId),mappings,userId));
 		return CommonResponseSender.createdSuccessResponse(map, response);
 	}
 	

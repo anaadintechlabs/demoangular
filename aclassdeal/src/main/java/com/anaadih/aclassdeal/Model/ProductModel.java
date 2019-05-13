@@ -1,11 +1,16 @@
 package com.anaadih.aclassdeal.Model;
 
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -19,28 +24,39 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 public class ProductModel {
 		@Id
-		private long prodID;
+		@GeneratedValue(strategy=GenerationType.IDENTITY)
+		private int prodId;
 		
+		//Ad Title
 		@NotBlank
 		private String  prodName;
 		
+		@ManyToOne
+		private CategoryModel category;
+		
+		@ManyToOne SubCategoryModel subCategory;
+		
+		//Ad Description
 		@NotBlank
 		private String prodDesc;
+
+		private String phoneNumber;		
 		
-		@NotBlank
-		private String status;
+		private String city;
+		
+		private boolean status;
 		
 		private boolean isInUse;
 		
 		private boolean isReported;
+		
+		private boolean isApproved;
 
 		private Date createdDate;
 		
 		private Date modifiedDate;
 		
-		private String phoneNumber;
-		
-		private String city;
+		private double price;
 		
 		private String userId;
 
@@ -54,7 +70,81 @@ public class ProductModel {
 		
 		private boolean isBid;
 		
+		private String model;
 		
+		
+		@Transient
+		private HashMap<String, String> attributes;
+		
+		
+		
+
+
+		public boolean isApproved() {
+			return isApproved;
+		}
+
+
+		public void setApproved(boolean isApproved) {
+			this.isApproved = isApproved;
+		}
+
+
+		public int getProdId() {
+			return prodId;
+		}
+
+
+		public void setProdId(int prodId) {
+			this.prodId = prodId;
+		}
+
+
+		public String getModel() {
+			return model;
+		}
+
+
+		public void setModel(String model) {
+			this.model = model;
+		}
+
+		 
+
+		public double getPrice() {
+			return price;
+		}
+
+
+		public void setPrice(double price) {
+			this.price = price;
+		}
+
+
+		@PrePersist
+		public void setValues() {
+			this.setUserId("ADMIN");
+			this.setCreatedDate(new Date());
+			this.setModifiedDate(new Date());
+		}
+		
+		
+		public CategoryModel getCategory() {
+			return category;
+		}
+
+		public void setCategory(CategoryModel category) {
+			this.category = category;
+		}
+
+		public SubCategoryModel getSubCategory() {
+			return subCategory;
+		}
+
+		public void setSubCategory(SubCategoryModel subCategory) {
+			this.subCategory = subCategory;
+		}
+
 		public long getBidId() {
 			return bidId;
 		}
@@ -97,13 +187,7 @@ public class ProductModel {
 			this.userId = userId;
 		}
 
-		public long getProdID() {
-			return prodID;
-		}
 
-		public void setProdID(long prodID) {
-			this.prodID = prodID;
-		}
 
 		public String getProdName() {
 			return prodName;
@@ -121,11 +205,11 @@ public class ProductModel {
 			this.prodDesc = prodDesc;
 		}
 
-		public String getStatus() {
+		public boolean getStatus() {
 			return status;
 		}
 
-		public void setStatus(String status) {
+		public void setStatus(boolean status) {
 			this.status = status;
 		}
 
@@ -184,15 +268,37 @@ public class ProductModel {
 			this.imgNames = imgNames;
 		}
 
-		@PrePersist
-		public void create() {
-			this.setCreatedDate(new Date());
-			this.setModifiedDate(new Date());	
-		}
-
+	
 		@PreUpdate
 		public void update() {
 			this.setModifiedDate(new Date());	
 		}
+
+
+		public HashMap<String, String> getAttributes() {
+			return attributes;
+		}
+
+
+		public void setAttributes(HashMap<String, String> attributes) {
+			this.attributes = attributes;
+		}
+
+
+		@Override
+		public String toString() {
+			return "ProductModel [prodId=" + prodId + ", prodName=" + prodName + ", category=" + category
+					+ ", subCategory=" + subCategory + ", prodDesc=" + prodDesc + ", phoneNumber=" + phoneNumber
+					+ ", city=" + city + ", status=" + status + ", isInUse=" + isInUse + ", isReported=" + isReported
+					+ ", isApproved=" + isApproved + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
+					+ ", price=" + price + ", userId=" + userId + ", imgNames=" + imgNames + ", bidId=" + bidId
+					+ ", bidTime=" + bidTime + ", bidamount=" + bidamount + ", isBid=" + isBid + ", model=" + model
+					+ ", attributes=" + attributes + "]";
+		}
+
+
+
+		
+		
 
 }

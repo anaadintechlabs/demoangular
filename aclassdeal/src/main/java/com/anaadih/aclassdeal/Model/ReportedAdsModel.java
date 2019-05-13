@@ -44,14 +44,15 @@ public class ReportedAdsModel {
 	
 	private boolean status;
 	
-	private String descadds;
-	
-	public String isDesc() {
-		return descadds;
+	private boolean description;
+
+
+	public boolean isDescription() {
+		return description;
 	}
 
-	public void setDesc(String desc) {
-		this.descadds = desc;
+	public void setDescription(boolean description) {
+		this.description = description;
 	}
 
 	public ProductModel getProdID() {
