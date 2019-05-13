@@ -28,7 +28,7 @@ public class ProductModel {
 		private String prodDesc;
 		
 		@NotBlank
-		private boolean status;
+		private String status;
 		
 		private boolean isInUse;
 		
@@ -121,11 +121,11 @@ public class ProductModel {
 			this.prodDesc = prodDesc;
 		}
 
-		public boolean getStatus() {
+		public String getStatus() {
 			return status;
 		}
 
-		public void setStatus(boolean status) {
+		public void setStatus(String status) {
 			this.status = status;
 		}
 

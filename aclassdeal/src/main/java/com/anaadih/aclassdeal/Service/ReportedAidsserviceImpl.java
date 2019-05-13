@@ -37,7 +37,7 @@ public class ReportedAidsserviceImpl implements ReportedAidService {
 	}
 	@Override
 	public List<ReportedAdsModel> getallAds(int limit,int offset) {
-		Page<ReportedAdsModel> page = reportedAids.findAll(new PageRequest(offset, limit, new Sort(Direction.ASC,"modifiedDate")));
+		Page<ReportedAdsModel> page = reportedAids.findByStatus(false);
 		return page.getContent();
 	}
 
