@@ -18,10 +18,10 @@ public class ReportedAdsModel {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long reportedId;
+	private int reportedId;
 	
 	@ManyToOne
-	private ProductModel prodID;
+	private ProductModel prodId;
 	
 	@NotBlank
 	private String  userId;
@@ -31,13 +31,6 @@ public class ReportedAdsModel {
 	
 
 
-	public long getReportedId() {
-		return reportedId;
-	}
-
-	public void setReportedId(long reportedId) {
-		this.reportedId = reportedId;
-	}
 
 	@NotBlank
 	private String reportCount;
@@ -47,6 +40,16 @@ public class ReportedAdsModel {
 	private boolean description;
 
 
+	
+
+	public int getReportedId() {
+		return reportedId;
+	}
+
+	public void setReportedId(int reportedId) {
+		this.reportedId = reportedId;
+	}
+	
 	public boolean isDescription() {
 		return description;
 	}
@@ -55,12 +58,14 @@ public class ReportedAdsModel {
 		this.description = description;
 	}
 
-	public ProductModel getProdID() {
-		return prodID;
+
+
+	public ProductModel getProdId() {
+		return prodId;
 	}
 
-	public void setProdID(ProductModel prodID) {
-		this.prodID = prodID;
+	public void setProdId(ProductModel prodId) {
+		this.prodId = prodId;
 	}
 
 	public String getUserId() {

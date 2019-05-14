@@ -19,6 +19,7 @@ import com.anaadih.aclassdeal.Repository.ReportedAidsRepository;
 @Service
 public class ReportedAidsserviceImpl implements ReportedAidService {
 
+
 	@Autowired 
 	private ReportedAidsRepository reportedAids;
 	@Override
@@ -26,7 +27,7 @@ public class ReportedAidsserviceImpl implements ReportedAidService {
 		return reportedAids.save(rAds);
 	}
 	@Override
-	public ReportedAdsModel blockAdds(Long reportedId) {
+	public ReportedAdsModel blockAdds(int reportedId) {
 		ReportedAdsModel model = null;
 		Optional<ReportedAdsModel> obj=reportedAids.findById(reportedId);
 		if(obj.isPresent()) {
@@ -39,7 +40,7 @@ public class ReportedAidsserviceImpl implements ReportedAidService {
 	}
 	@Override
 	public List<ReportedAdsModel> getallAds(int limit,int offset) {
-		Page<ReportedAdsModel> page = reportedAids.findAll(new PageRequest(offset, limit, new Sort(Direction.ASC,"modifiedDate")));
+		Page<ReportedAdsModel> page = reportedAids.findByStatus(false,new PageRequest(limit, offset, Sort.Direction.ASC));
 		return page.getContent();
 	}
 

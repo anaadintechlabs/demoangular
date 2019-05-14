@@ -38,5 +38,15 @@ public class productServiceImpl implements productService{
 			return model.get();
 		 
 	}
+	
+	@Override
+	public List<ProductModel> getAllPendingProducts(int limit, int offset) {
+		return productRepository.findByStatus("New");
+	}
+
+	@Override
+	public void approveProduct(List<String> ids) {
+		productRepository.approveProduct(ids);
+	}
 
 }

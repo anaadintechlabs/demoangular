@@ -7,12 +7,13 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.anaadih.aclassdeal.Model.AttributeModel;
 import com.anaadih.aclassdeal.Model.SubCategoryModel;
 import com.anaadih.aclassdeal.Repository.AttributeRepository;
 
-@Repository
+@Service
 public class AttributeServiceImpl implements AttributeService {
 
 	@Autowired

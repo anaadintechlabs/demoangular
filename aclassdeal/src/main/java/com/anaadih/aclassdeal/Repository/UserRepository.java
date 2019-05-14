@@ -3,8 +3,11 @@ package com.anaadih.aclassdeal.Repository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import com.anaadih.aclassdeal.Model.User;
 
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 	 
 	 Optional<User> findByEmail(String email);

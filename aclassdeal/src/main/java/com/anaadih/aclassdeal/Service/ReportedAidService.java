@@ -13,7 +13,7 @@ public interface ReportedAidService {
 
 	ReportedAdsModel saveAdds(@Valid ReportedAdsModel rAds);
 
-	ReportedAdsModel blockAdds(Long i);
+	ReportedAdsModel blockAdds(int i);
 
 	List<ReportedAdsModel> getallAds(int limit,int offset);
 }
