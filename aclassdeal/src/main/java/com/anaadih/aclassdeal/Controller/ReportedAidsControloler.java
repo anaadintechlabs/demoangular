@@ -43,14 +43,6 @@ public class ReportedAidsControloler {
 	 * @return
 	 */
 	
-	/**
-	 * method to report ads
-	 * @param rAds
-	 * @param errors
-	 * @param request
-	 * @param response
-	 * @return
-	 */
 	@RequestMapping(value="/addReportedAids",method=RequestMethod.POST)
 	public Map<String,Object> addReportedAids(@RequestBody @Valid ReportedAdsModel rAds,@RequestParam(value="prodId") String prodId,Errors errors,HttpServletRequest request,HttpServletResponse response)
 	{
@@ -65,6 +57,9 @@ public class ReportedAidsControloler {
 		pModel.setReported(true);
 		productService.saveProduct(pModel);
 		map.put("Adds", reportedService.saveAdds(rAds));
+		ProductModel pModel = productService.getProductById(Long.parseLong(prodId));
+		pModel.setReported(true);
+		productService.saveProduct(pModel);
 		return CommonResponseSender.createdSuccessResponse(map, response);
 	}
 	

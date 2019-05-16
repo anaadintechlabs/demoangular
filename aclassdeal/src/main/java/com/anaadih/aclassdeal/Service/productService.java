@@ -20,5 +20,8 @@ public interface productService {
 	
 	List<ProductModel> getAllPendingProducts(int limit, int offset);
 
+
 	void approveProduct(List<Integer> ids);
+
+	ProductModel findProductsWithCatCode(String catCode);
 }

@@ -63,4 +63,10 @@ public class productServiceImpl implements productService{
 		productRepository.approveProduct(ids);
 	}
 
+	@Override
+	public ProductModel findProductsWithCatCode(String catCode) {
+		productRepository.findProductsWithCatCode(catCode);
+		return null;
+	}
+
 }

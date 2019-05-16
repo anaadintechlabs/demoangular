@@ -1,6 +1,7 @@
 package com.anaadih.aclassdeal.Controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import com.anaadih.aclassdeal.Model.CategoryModel;
 import com.anaadih.aclassdeal.Service.AttributeService;
 import com.anaadih.aclassdeal.Service.CategoryService;
 import com.anaadih.aclassdeal.Service.SubCategoryService;
+import com.anaadih.aclassdeal.Service.productService;
 import com.anaadih.aclassdeal.util.CommonResponseSender;
 
 @RestController
@@ -35,6 +37,7 @@ public class CategoryController {
 	
 	@Autowired
 	private AttributeService attributeService; 
+
 
 	@RequestMapping(value="/saveCategory",method=RequestMethod.POST)
 	public Map<String,Object> saveCategory(@RequestBody @Valid CategoryModel category,Errors errors,HttpServletRequest request,HttpServletResponse response)
@@ -81,7 +84,29 @@ public class CategoryController {
 	}
 	
 
+/**
+ * service for dashboard for all category count .....
+ * 
+ */
+	/**
+	 * 
+	 * @param limit
+	 * @param offset
+	 * @param catCode
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	
+	@RequestMapping(value="/getAllCategorieswithCount",method=RequestMethod.GET)
+	public Map<String,Object> getAllCategorieswithCount(@RequestParam(value="limit")int limit,
+			@RequestParam(value="offset")int offset,
+			HttpServletRequest request,HttpServletResponse response){
+		final HashMap<String, Object> map = new HashMap<>();
+		map.put("subCategoryList", categoryService.getAllCategorywithCount(limit,offset));
+		return CommonResponseSender.createdSuccessResponse(map, response);
+		
+	}
 	
 	
 }

@@ -25,4 +25,6 @@ public interface ProductRepository extends PagingAndSortingRepository<ProductMod
 
 	Page<ProductModel> findByStatus(String status, Pageable pg);
 
+	ProductModel findProductsWithCatCode(String catCode);
+
 }

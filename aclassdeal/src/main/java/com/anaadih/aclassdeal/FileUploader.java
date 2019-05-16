@@ -46,8 +46,13 @@ public class FileUploader {
 	}
 	
 	public String getFilePath(String imgName,String userName) {
-		return directoryPath+"\\"+userName;
-		
+		String mdoHomeDir = System.getProperty("");
+		userName = (userName!=null && !userName.equalsIgnoreCase("null") ?File.separator+userName:"");
+		imgName = (imgName!=null && !imgName.equalsIgnoreCase("null") ?File.separator+imgName:"");
+
+		String path = mdoHomeDir+File.separator+"Attachements"+userName+imgName;
+		 
+		return path; 
 	}
 	
 	 private String generateFileName() {
