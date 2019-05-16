@@ -170,7 +170,7 @@ public class ProductController {
 	 */
 	
 	@RequestMapping(value="/approveProduct",method=RequestMethod.GET)
-	public Map<String,Object> approveProduct(@RequestParam (value = "Ids") List<String> Ids,
+	public Map<String,Object> approveProduct(@RequestParam (value = "Ids") List<Integer> Ids,
 			HttpServletRequest request,HttpServletResponse response){
 		System.out.println("Approved all Products");
 		final HashMap<String, Object> map = new HashMap<>();

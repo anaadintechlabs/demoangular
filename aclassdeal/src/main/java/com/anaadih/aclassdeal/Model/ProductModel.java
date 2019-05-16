@@ -46,7 +46,7 @@ public class ProductModel {
 		
 		private String city;
 		
-		private boolean status;
+		private String status;
 		
 		private boolean isInUse;
 		
@@ -139,6 +139,7 @@ public class ProductModel {
 		@PrePersist
 		public void setValues() {
 			this.setUserId("ADMIN");
+			this.setStatus("NEW");
 			this.setCreatedDate(new Date());
 			this.setModifiedDate(new Date());
 		}
@@ -220,13 +221,17 @@ public class ProductModel {
 			this.prodDesc = prodDesc;
 		}
 
-		public boolean getStatus() {
+	
+
+		public String getStatus() {
 			return status;
 		}
 
-		public void setStatus(boolean status) {
+
+		public void setStatus(String status) {
 			this.status = status;
 		}
+
 
 		public boolean isInUse() {
 			return isInUse;

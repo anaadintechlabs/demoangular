@@ -20,5 +20,5 @@ public interface productService {
 	
 	List<ProductModel> getAllPendingProducts(int limit, int offset);
 
-	void approveProduct(List<String> ids);
+	void approveProduct(List<Integer> ids);
 }
