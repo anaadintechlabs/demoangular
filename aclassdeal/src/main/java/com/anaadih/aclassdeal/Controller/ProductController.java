@@ -97,7 +97,7 @@ public class ProductController {
 			HttpServletRequest request,HttpServletResponse response){
 		System.out.println("Get all Products");
 		final HashMap<String, Object> map = new HashMap<>();
-		map.put("categoryList", productService.getAllProducts(limit,offset));
+		map.put("productList", productService.getAllProducts(limit,offset));
 		return CommonResponseSender.createdSuccessResponse(map, response);
 	}
 	
@@ -114,7 +114,7 @@ public class ProductController {
 	public Map<String,Object> getProductById(@RequestParam(value="prodId")String prodId,HttpServletRequest request,HttpServletResponse response){
 		System.out.println("Get Product By id");
 		final HashMap<String, Object> map = new HashMap<>();
-		map.put("categoryList", productService.getProductById(Integer.parseInt(prodId)));
+		map.put("product", productService.getProductById(Integer.parseInt(prodId)));
 		return CommonResponseSender.createdSuccessResponse(map, response);
 	}
 	
@@ -135,7 +135,7 @@ public class ProductController {
 			HttpServletRequest request,HttpServletResponse response){
 		System.out.println("Get all Products");
 		final HashMap<String, Object> map = new HashMap<>();
-		map.put("categoryList", productService.getAllPendingProducts(limit,offset));
+		map.put("pendingProductList", productService.getAllPendingProducts(limit,offset));
 		return CommonResponseSender.createdSuccessResponse(map, response);
 	}
 	
@@ -156,7 +156,7 @@ public class ProductController {
 			HttpServletRequest request,HttpServletResponse response){
 		System.out.println("Get all Products");
 		final HashMap<String, Object> map = new HashMap<>();
-		map.put("categoryList", productService.getAllProducts(limit,offset));
+		map.put("productList", productService.getAllProducts(limit,offset));
 		return CommonResponseSender.createdSuccessResponse(map, response);
 	}
 	
@@ -175,7 +175,7 @@ public class ProductController {
 		System.out.println("Approved all Products");
 		final HashMap<String, Object> map = new HashMap<>();
 		productService.approveProduct(Ids);
-		map.put("categoryList", "Approved");
+		map.put("product", "Approved");
 		return CommonResponseSender.createdSuccessResponse(map, response);
 	}
 	
