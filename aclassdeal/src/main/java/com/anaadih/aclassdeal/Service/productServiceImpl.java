@@ -33,7 +33,7 @@ public class productServiceImpl implements productService{
 	}
 
 	@Override
-	public ProductModel getProductById(long prodId) {
+	public ProductModel getProductById(int prodId) {
 		Optional<ProductModel> model =  productRepository.findById(prodId);
 			return model.get();
 		 

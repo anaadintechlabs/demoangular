@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.anaadih.aclassdeal.FileUploader;
 import com.anaadih.aclassdeal.Model.CategoryModel;
@@ -56,7 +57,7 @@ public class ProductController {
 	 * @return
 	 */
 	@RequestMapping(value="/saveProduct",method=RequestMethod.POST)
-	public Map<String,Object> saveProduct(@RequestBody @Valid ProductModel product,HashMap<String ,String> images,Errors errors,HttpServletRequest request,HttpServletResponse response)
+	public Map<String,Object> saveProduct(@RequestBody @Valid ProductModel product,Errors errors,HttpServletRequest request,HttpServletResponse response)
 	{
 		final HashMap<String, Object> map = new HashMap<>();
 		if(errors.hasErrors())
@@ -64,14 +65,17 @@ public class ProductController {
 			return (Map<String, Object>) map.put("error", "Something went wrong");
 		}
 
-		System.out.println("product issss"+product);
-		
-//		String imgNames = "";
-//		for(String imgName :images.keySet()) {
-//			String FPath = fileUploder.getFilePath(imgName,  product.getUserId());
-//			imgNames += FPath +",";
-//			fileUploder.uploadFile(images.get(imgName), FPath, imgName, product.getUserId());
-//		}
+		System.out.println("producst issss"+product);
+		HashMap<String ,MultipartFile> images=product.getImages();
+		String imgNames = "";
+		if(images!=null) {
+		for(String imgName :images.keySet()) {
+			String FPath = fileUploder.getFilePath(imgName,  product.getUserId());
+			System.out.println("FPATH"+FPath);
+			imgNames += FPath +",";
+			fileUploder.uploadFile(images.get(imgName), FPath, imgName, product.getUserId());
+		}
+		}
 		HashMap<String ,String> mappings=product.getAttributes();
 		map.put("product", productService.saveProduct(product));
 		System.out.println("product saved");

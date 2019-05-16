@@ -16,7 +16,7 @@ public interface productService {
 
 	List<ProductModel> getAllProducts(int limit, int offset);
 
-	ProductModel getProductById(long prodId);
+	ProductModel getProductById(int prodId);
 	
 	List<ProductModel> getAllPendingProducts(int limit, int offset);
 

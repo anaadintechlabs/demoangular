@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.validation.constraints.NotBlank;
 /**
  * 
@@ -21,26 +22,31 @@ public class ReportedAdsModel {
 	private int reportedId;
 	
 	@ManyToOne
-	private ProductModel prodId;
+	private ProductModel productId;
 	
-	@NotBlank
-	private String  userId;
 	
-	@NotBlank
-	private String reportDate;
+	private String  reportedBy;
 	
-
-
-
-	@NotBlank
+	private String uploadedBy;
+	
+	
+	private Date reportDate;
+	
+	
 	private String reportCount;
 	
 	private boolean status;
 	
-	private boolean description;
+	private String description;
 
 
-	
+	@PrePersist
+	public void setData() {
+		this.setReportedBy("ADMIN");
+		this.setUploadedBy("USER1");
+		this.setReportDate(new Date());
+		this.setStatus(true);
+	}
 
 	public int getReportedId() {
 		return reportedId;
@@ -50,37 +56,49 @@ public class ReportedAdsModel {
 		this.reportedId = reportedId;
 	}
 	
-	public boolean isDescription() {
+
+
+
+	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(boolean description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 
 
-
-	public ProductModel getProdId() {
-		return prodId;
+	public ProductModel getProductId() {
+		return productId;
 	}
 
-	public void setProdId(ProductModel prodId) {
-		this.prodId = prodId;
+	public void setProductId(ProductModel productId) {
+		this.productId = productId;
 	}
 
-	public String getUserId() {
-		return userId;
+
+
+	public String getReportedBy() {
+		return reportedBy;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setReportedBy(String reportedBy) {
+		this.reportedBy = reportedBy;
 	}
 
-	public String getReportDate() {
+	public String getUploadedBy() {
+		return uploadedBy;
+	}
+
+	public void setUploadedBy(String uploadedBy) {
+		this.uploadedBy = uploadedBy;
+	}
+
+	public Date getReportDate() {
 		return reportDate;
 	}
 
-	public void setReportDate(String reportDate) {
+	public void setReportDate(Date reportDate) {
 		this.reportDate = reportDate;
 	}
 

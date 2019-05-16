@@ -10,7 +10,7 @@ import com.anaadih.aclassdeal.Model.CategoryModel;
 import com.anaadih.aclassdeal.Model.ProductModel;
 
 @Repository
-public interface ProductRepository extends PagingAndSortingRepository<ProductModel,Long>{
+public interface ProductRepository extends PagingAndSortingRepository<ProductModel,Integer>{
 
 	List<ProductModel> findByStatus(String status);
 

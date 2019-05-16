@@ -52,14 +52,18 @@ public class ReportedAidsControloler {
 	 * @return
 	 */
 	@RequestMapping(value="/addReportedAids",method=RequestMethod.POST)
-	public Map<String,Object> addReportedAids(@RequestBody @Valid ReportedAdsModel rAds,Errors errors,HttpServletRequest request,HttpServletResponse response)
+	public Map<String,Object> addReportedAids(@RequestBody @Valid ReportedAdsModel rAds,@RequestParam(value="prodId") String prodId,Errors errors,HttpServletRequest request,HttpServletResponse response)
 	{
-		System.out.println("Inside Reported Aids");
+		System.out.println("Inside Reported Aids"+prodId);
 		final HashMap<String, Object> map = new HashMap<>();
 		if(errors.hasErrors())
 		{
 			return (Map<String, Object>) map.put("error", "Something went wrong");
 		}
+		//here mapping to update the is_reporte true of product
+		ProductModel pModel = productService.getProductById(Integer.parseInt(prodId));
+		pModel.setReported(true);
+		productService.saveProduct(pModel);
 		map.put("Adds", reportedService.saveAdds(rAds));
 		return CommonResponseSender.createdSuccessResponse(map, response);
 	}
@@ -73,18 +77,15 @@ public class ReportedAidsControloler {
 	 * @return
 	 */
 	
-	@RequestMapping(value="/blockAdd",method=RequestMethod.POST)
-	public Map<String,Object> blockAdd(@RequestParam(value="reportedId")String reportedId,Errors errors,HttpServletRequest request,HttpServletResponse response)
+	@RequestMapping(value="/blockAdd",method=RequestMethod.GET)
+	public Map<String,Object> blockAdd(@RequestParam(value="reportedId")String reportedId,HttpServletRequest request,HttpServletResponse response)
 	{
-		System.out.println("Inside Reported Aids");
+
 		final HashMap<String, Object> map = new HashMap<>();
-		if(errors.hasErrors())
-		{
-			return (Map<String, Object>) map.put("error", "Something went wrong");
-		}
+
 		ReportedAdsModel model = reportedService.blockAdds(Integer.parseInt(reportedId));
 		map.put("Adds", model);
-		ProductModel product = productService.getProductById(model.getProdId().getProdId());
+		ProductModel product = productService.getProductById(model.getProductId().getProdId());
 		product.setReported(true);
 		product.setInUse(false);
 		productService.saveProduct(product);
@@ -102,17 +103,14 @@ public class ReportedAidsControloler {
 	 */
 	
 	
-	@RequestMapping(value="/getallAds",method=RequestMethod.POST)
+	@RequestMapping(value="/getallAds",method=RequestMethod.GET)
 	public Map<String,Object> getallAds(@RequestParam(value="limit")int limit,
-			@RequestParam(value="offset")int offset,Errors errors,HttpServletRequest request,HttpServletResponse response)
+			@RequestParam(value="offset")int offset,HttpServletRequest request,HttpServletResponse response)
 	{
 		System.out.println("Inside Reported Aids");
 		final HashMap<String, Object> map = new HashMap<>();
-		if(errors.hasErrors())
-		{
-			return (Map<String, Object>) map.put("error", "Something went wrong");
-		}
-		map.put("Adds", reportedService.getallAds(limit,offset));
+
+		map.put("reportedAdsList", reportedService.getallAds(limit,offset));
 		return CommonResponseSender.createdSuccessResponse(map, response);
 	}
 

@@ -13,6 +13,8 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
@@ -76,8 +78,21 @@ public class ProductModel {
 		@Transient
 		private HashMap<String, String> attributes;
 		
+		@Transient
+		private HashMap<String, MultipartFile> images;
 		
 		
+		
+			
+
+		public HashMap<String, MultipartFile> getImages() {
+			return images;
+		}
+
+
+		public void setImages(HashMap<String, MultipartFile> images) {
+			this.images = images;
+		}
 
 
 		public boolean isApproved() {
@@ -293,7 +308,7 @@ public class ProductModel {
 					+ ", isApproved=" + isApproved + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
 					+ ", price=" + price + ", userId=" + userId + ", imgNames=" + imgNames + ", bidId=" + bidId
 					+ ", bidTime=" + bidTime + ", bidamount=" + bidamount + ", isBid=" + isBid + ", model=" + model
-					+ ", attributes=" + attributes + "]";
+					+ ", attributes=" + attributes + ", images=" + images + "]";
 		}
 
 
