@@ -80,7 +80,29 @@ public class CategoryController {
 		
 	}
 	
-
+	/**
+	 * service for dashboard for all category count .....
+	 * 
+	 */
+		/**
+		 * 
+		 * @param limit
+		 * @param offset
+		 * @param catCode
+		 * @param request
+		 * @param response
+		 * @return
+		 */
+		
+		@RequestMapping(value="/getAllCategorieswithCount",method=RequestMethod.GET)
+		public Map<String,Object> getAllCategorieswithCount(@RequestParam(value="limit")int limit,
+				@RequestParam(value="offset")int offset,
+				HttpServletRequest request,HttpServletResponse response){
+			final HashMap<String, Object> map = new HashMap<>();
+			map.put("subCategoryList", categoryService.getAllCategorywithCount(limit,offset));
+			return CommonResponseSender.createdSuccessResponse(map, response);
+			
+		}
 	
 	
 	

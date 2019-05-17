@@ -85,11 +85,13 @@ public class ReportedAidsControloler {
 
 		ReportedAdsModel model = reportedService.blockAdds(Integer.parseInt(reportedId));
 		map.put("Adds", model);
+		if(model!=null) {
 		ProductModel product = productService.getProductById(model.getProductId().getProdId());
 		product.setStatus("DELETED");
 		product.setReported(true);
 		product.setInUse(false);
 		productService.saveProduct(product);
+		}
 		return CommonResponseSender.createdSuccessResponse(map, response);
 	}
 	

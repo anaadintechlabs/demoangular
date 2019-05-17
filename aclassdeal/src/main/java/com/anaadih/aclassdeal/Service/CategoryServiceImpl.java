@@ -1,5 +1,6 @@
 package com.anaadih.aclassdeal.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,15 @@ public class CategoryServiceImpl implements CategoryService{
 		return page.getContent();
 	}
 
+	@Override
+	public HashMap<String,Object> getAllCategorywithCount(int limit, int offset) {
+		HashMap<String,Object> map = new HashMap();
+		List<CategoryModel> catCount = categoryRepository.findByjoinQuery();
+		List<CategoryModel> allcategories = (List<CategoryModel>) categoryRepository.findAll();
+		map.put("allCategories", allcategories);
+		map.put("catCount", catCount);
+		return map;
+	}
+	
 	
 }

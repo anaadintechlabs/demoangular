@@ -67,7 +67,7 @@ public class SecurityConfig	extends WebSecurityConfigurerAdapter  {
 	                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 	                    .and()
 	                .authorizeRequests()
-	                    .antMatchers("/","/api/*",
+	                    .antMatchers("/","/api/*","/api/*/*",
 	                        "/favicon.ico",
 	                        "/**/*.png",
 	                        "/**/*.gif",
