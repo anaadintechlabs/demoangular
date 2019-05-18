@@ -1,5 +1,6 @@
 package com.anaadih.aclassdeal.Controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,9 +22,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.anaadih.aclassdeal.FileUploader;
 import com.anaadih.aclassdeal.Model.CategoryModel;
 import com.anaadih.aclassdeal.Model.ProductModel;
+import com.anaadih.aclassdeal.Service.FileUploadService;
 import com.anaadih.aclassdeal.Service.ProductAttributeService;
 import com.anaadih.aclassdeal.Service.productService;
 import com.anaadih.aclassdeal.util.CommonResponseSender;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * 
@@ -43,6 +49,9 @@ public class ProductController {
 	private ProductAttributeService productAttributeService;
 	
 	@Autowired
+	private FileUploadService fileUploadService;
+	
+	@Autowired
 	private FileUploader fileUploder;
 	
 	
@@ -55,31 +64,35 @@ public class ProductController {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	@RequestMapping(value="/saveProduct",method=RequestMethod.POST)
-	public Map<String,Object> saveProduct(@RequestBody @Valid ProductModel product,Errors errors,HttpServletRequest request,HttpServletResponse response)
+	@RequestMapping(value="/saveProductWithImages",method=RequestMethod.POST)
+	public Map<String,Object> saveProduct(@RequestParam(value="file",required=false) MultipartFile[] files,@RequestParam(value="productString",required=false) String productString,HttpServletResponse response) throws JsonParseException, JsonMappingException, IOException
 	{
 		final HashMap<String, Object> map = new HashMap<>();
-		if(errors.hasErrors())
-		{
-			return (Map<String, Object>) map.put("error", "Something went wrong");
-		}
-
-		System.out.println("producst issss"+product);
-		HashMap<String ,MultipartFile> images=product.getImages();
-		String imgNames = "";
-		if(images!=null) {
-		for(String imgName :images.keySet()) {
-			String FPath = fileUploder.getFilePath(imgName,  product.getUserId());
-			System.out.println("FPATH"+FPath);
-			imgNames += FPath +",";
-			fileUploder.uploadFile(images.get(imgName), FPath, imgName, product.getUserId());
-		}
-		}
+		int i=files.length;
+		System.out.println("No of images"+i);
+		ObjectMapper objMapper= new ObjectMapper();
+		TypeReference<ProductModel> mapType= new TypeReference<ProductModel>() {
+		};
+		ProductModel product= objMapper.readValue(productString, mapType);
+		System.out.println("PRODUCT FROM MAP ISIS "+product);
 		HashMap<String ,String> mappings=product.getAttributes();
-		map.put("product", productService.saveProduct(product));
-		System.out.println("product saved");
+		product=productService.saveProduct(product);
+		map.put("product",product);
+		System.out.println("product saved"+product);
 		productAttributeService.saveMapping(product.getProdId(), mappings, product.getUserId());
+		
+		//product with no photo
+		if(i>0)
+		{
+			fileUploadService.saveImagesofProduct(files,product);
+		}
+		
+		//Used for converting any String to object
+	
 		return CommonResponseSender.createdSuccessResponse(map, response);
 		
 	}

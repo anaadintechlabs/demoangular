@@ -18,7 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.anaadih.aclassdeal.Model.UploadFileResponse;
+import com.anaadih.aclassdeal.Model.ProductImageMapping;
+import com.anaadih.aclassdeal.Model.ProductModel;
 import com.anaadih.aclassdeal.property.FileUploadProperties;
 import com.anaadih.aclassdeal.util.FileStorageException;
 import com.anaadih.aclassdeal.util.MyFileNotFoundException;
@@ -31,6 +32,9 @@ public class FileUploadService {
 
 	private final Path fileStoragePath;
     private final Path fileStorageLocation;
+    
+	@Autowired
+	private productService productService;
     
     @Value("${application.public.domain}")
 	private String applicationPublicDomain;
@@ -59,9 +63,12 @@ public class FileUploadService {
         return "PIC_"+String.valueOf(new Date().getTime());
     }
 
+    private String generateFileNameForProduct(int prodId) {
+        return prodId+"_"+String.valueOf(new Date().getTime());
+    }
     
 
-	public UploadFileResponse storeFile(MultipartFile file) {
+	public ProductImageMapping storeFile(MultipartFile file) {
 	     // Normalize file name
         String fileName = StringUtils.cleanPath(generateFileName());
 
@@ -75,14 +82,14 @@ public class FileUploadService {
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-            return new UploadFileResponse(fileName, generateFileUri(fileName),file.getContentType(), file.getSize());
+            return new ProductImageMapping(fileName, generateFileUri(fileName),file.getContentType(), file.getSize());
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
         }
 	}
 
-	public List<UploadFileResponse> storeFiles(MultipartFile[] files) {
-		List<UploadFileResponse> uploadMultipleFiles = new ArrayList<>();
+	public List<ProductImageMapping> storeFiles(MultipartFile[] files) {
+		List<ProductImageMapping> uploadMultipleFiles = new ArrayList<>();
     	for(MultipartFile file : files){
     		 uploadMultipleFiles.add(storeFile(file));
     	}
@@ -101,5 +108,37 @@ public class FileUploadService {
         } catch (MalformedURLException ex) {
             throw new MyFileNotFoundException("File not found " + fileName, ex);
         }
+	}
+
+	public void saveImagesofProduct(MultipartFile[] files, ProductModel product) {
+		List<String> imgName=new ArrayList<>();
+		for(MultipartFile file : files){
+   		 		storeImageForProduct(file,imgName,product.getProdId());
+			}
+		if(imgName!=null && imgName.size()>0) {
+			product.setMainImage(imgName.get(0));
+		}
+		String csv=String.join(",", imgName);
+		product.setImgNames(csv);
+		productService.saveProduct(product);
+	}
+
+	private void storeImageForProduct(MultipartFile file, List<String> imgName, int prodId) {
+		 String fileName = StringUtils.cleanPath(generateFileNameForProduct(prodId));
+		 System.out.println("FILENAME"+fileName);
+	        try {
+	            // Check if the file's name contains invalid characters
+	            if(fileName.contains("..")) {
+	                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
+	            }
+
+	            // Copy file to the target location (Replacing existing file with the same name)
+	            Path targetLocation = this.fileStorageLocation.resolve(fileName);
+	            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+	            imgName.add(fileName);
+	            
+	        } catch (IOException ex) {
+	            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
+	        }
 	}
 }

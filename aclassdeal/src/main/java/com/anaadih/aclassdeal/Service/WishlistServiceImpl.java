@@ -23,8 +23,8 @@ public class WishlistServiceImpl implements WishlistService {
 	public WishlistModel addWishlist(String prodId, String userId) {
 		WishlistModel wishlist = new WishlistModel();
 		wishlist.setProdId(productService.getProductById(Integer.parseInt(prodId)));
-		wishlist.setUserId(userId);
-		wishlist.setwishlistDate(new SimpleDateFormat().format(new Date()));
+		wishlist.setUserId("ADMIN1");
+		
 		wishlist.setStatus(true);
 		return wishlistRepository.save(wishlist);
 	}

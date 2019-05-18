@@ -22,8 +22,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author Paras
  *
  */
-
+//JSon Ignore unknwon property is  used to ignore the propery from converting json to objec
 @Entity
+@JsonIgnoreProperties(ignoreUnknown=true)
+
 public class ProductModel {
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -64,6 +66,8 @@ public class ProductModel {
 
 		private String imgNames;
 		
+		private String mainImage;
+		
 		private long bidId;
 		
 		private String bidTime;
@@ -78,20 +82,16 @@ public class ProductModel {
 		@Transient
 		private HashMap<String, String> attributes;
 		
-		@Transient
-		private HashMap<String, MultipartFile> images;
-		
-		
-		
-			
 
-		public HashMap<String, MultipartFile> getImages() {
-			return images;
+
+
+		public String getMainImage() {
+			return mainImage;
 		}
 
 
-		public void setImages(HashMap<String, MultipartFile> images) {
-			this.images = images;
+		public void setMainImage(String mainImage) {
+			this.mainImage = mainImage;
 		}
 
 
@@ -313,7 +313,7 @@ public class ProductModel {
 					+ ", isApproved=" + isApproved + ", createdDate=" + createdDate + ", modifiedDate=" + modifiedDate
 					+ ", price=" + price + ", userId=" + userId + ", imgNames=" + imgNames + ", bidId=" + bidId
 					+ ", bidTime=" + bidTime + ", bidamount=" + bidamount + ", isBid=" + isBid + ", model=" + model
-					+ ", attributes=" + attributes + ", images=" + images + "]";
+					+ ", attributes=" + attributes +  "]";
 		}
 
 

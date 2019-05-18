@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.anaadih.aclassdeal.Model.UploadFileResponse;
+import com.anaadih.aclassdeal.Model.ProductImageMapping;
 import com.anaadih.aclassdeal.Service.FileUploadService;
 import com.anaadih.aclassdeal.util.CommonResponseSender;
 
@@ -43,7 +43,7 @@ public class FileUploadController {
 	   @PostMapping("/uploadFile")
 	    public Map<String, Object> uploadFile(@RequestParam("file") MultipartFile file,HttpServletResponse response) {
 	    	System.out.println("inside upload file"+file);
-		   UploadFileResponse uploadFileResponse = fileUploadService.storeFile(file);
+		   ProductImageMapping uploadFileResponse = fileUploadService.storeFile(file);
 	        final Map<String, Object> map = new HashMap<>();
 	        System.out.println("uploadFileResponsee"+uploadFileResponse);
 	        final Date startDate = new Date();
@@ -56,7 +56,7 @@ public class FileUploadController {
 	    @PostMapping("/uploadMultipleFiles")
 	    public Map<String, Object> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files,HttpServletResponse response) {
 	    	
-	    	List<UploadFileResponse> uploadMultipleFiles = fileUploadService.storeFiles(files);  	
+	    	List<ProductImageMapping> uploadMultipleFiles = fileUploadService.storeFiles(files);  	
 	    	final Map<String, Object> map = new HashMap<>();
 	        final Date startDate = new Date();
 			map.put("uploadMultipleFiles", uploadMultipleFiles);

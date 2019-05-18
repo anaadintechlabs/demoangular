@@ -1,10 +1,13 @@
 package com.anaadih.aclassdeal.Model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -15,18 +18,27 @@ public class WishlistModel {
 	private int wishlistId;
 	
 	@ManyToOne
-	@NotBlank
+	//@NotBlank
 	private ProductModel prodId;
 	
 	@NotBlank
 	//@ManyToOne
 	private String  userId;
 	
-	@NotBlank
-	private String wishlistDate;
+	//@NotBlank
+	private Date wishlistDate;
+	
+
 	
 	private boolean status;
 
+	@PrePersist
+	public void setData() {
+		this.setStatus(true);
+		this.setwishlistDate(new Date());
+		this.setUserId("ADMIN1");
+	}
+	
 	public int getWishlistId() {
 		return wishlistId;
 	}
@@ -51,12 +63,12 @@ public class WishlistModel {
 		this.userId = userId;
 	}
 
-	public String getwishlistDate() {
+	public Date getwishlistDate() {
 		return wishlistDate;
 	}
 
-	public void setwishlistDate(String wishlistDate) {
-		this.wishlistDate = wishlistDate;
+	public void setwishlistDate(Date date) {
+		this.wishlistDate = date;
 	}
 
 	public boolean isStatus() {

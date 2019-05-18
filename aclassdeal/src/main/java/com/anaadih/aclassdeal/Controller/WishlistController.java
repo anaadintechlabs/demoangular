@@ -63,15 +63,19 @@ public class WishlistController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value="/getallWishlist",method=RequestMethod.POST)
+	@RequestMapping(value="/getallWishlist",method=RequestMethod.GET)
 	public Map<String,Object> getallWishlist(HttpServletRequest request,HttpServletResponse response)
 	{
 		System.out.println("Inside get wishlist");
 		final HashMap<String, Object> map = new HashMap<>();
 
-		String userId = "";   // By session  for temporary u can do it with parameter
+		String userId = "ADMIN1";   // By session  for temporary u can do it with parameter
 		map.put("wishlist", wislistService.getallWishlist(userId));
 		return CommonResponseSender.createdSuccessResponse(map, response);
 		
 	}
+	
+	
+	
+
 }

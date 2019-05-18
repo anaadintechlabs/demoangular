@@ -24,6 +24,11 @@ public class ProductattributeMapping {
 	private long attributeId;
 	
 
+	private String attributeValue;
+	
+	private String userId;
+	
+	
 
 	public int getSno() {
 		return sno;
@@ -64,9 +69,5 @@ public class ProductattributeMapping {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
-	private String attributeValue;
-	
-	private String userId;
 	
 }
