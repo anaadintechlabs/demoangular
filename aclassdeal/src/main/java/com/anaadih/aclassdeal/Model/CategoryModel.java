@@ -23,7 +23,7 @@ public class CategoryModel {
 	@NotBlank
 	private String catDesc;
 	
-	@NotBlank
+	
 	private String status;
 	
 	private boolean isInUse;

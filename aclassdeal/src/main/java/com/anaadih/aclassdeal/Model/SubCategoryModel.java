@@ -21,7 +21,7 @@ public class SubCategoryModel {
 	@NotBlank
 	private String catDesc;
 	
-	@NotBlank
+	
 	private String status;
 	
 	@ManyToOne

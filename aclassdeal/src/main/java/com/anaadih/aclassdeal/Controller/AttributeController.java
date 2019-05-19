@@ -39,7 +39,6 @@ public class AttributeController {
 	@RequestMapping(value="/saveAttribute",method=RequestMethod.POST)
 	public Map<String,Object> saveAttribute(@RequestBody @Valid AttributeModel attributeModel,Errors errors,HttpServletRequest request,HttpServletResponse response)
 	{
-		System.out.println("Inside save saveAttribute ");
 		final HashMap<String, Object> map = new HashMap<>();
 		if(errors.hasErrors())
 		{

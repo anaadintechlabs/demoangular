@@ -12,4 +12,6 @@ public interface WishlistRepository extends PagingAndSortingRepository<WishlistM
 
 	List<WishlistModel> findByUserId(String userId);
 
+	WishlistModel findByUserIdAndProdIdProdId(String userId, int prodId);
+
 }

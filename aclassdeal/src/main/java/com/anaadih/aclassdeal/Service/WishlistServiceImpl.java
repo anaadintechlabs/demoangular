@@ -22,6 +22,10 @@ public class WishlistServiceImpl implements WishlistService {
 	@Override
 	public WishlistModel addWishlist(String prodId, String userId) {
 		WishlistModel wishlist = new WishlistModel();
+		WishlistModel previousAdded=wishlistRepository.findByUserIdAndProdIdProdId(userId,Integer.parseInt(prodId));
+		if(previousAdded!=null) {
+			System.out.println("Already Added");
+		}
 		wishlist.setProdId(productService.getProductById(Integer.parseInt(prodId)));
 		wishlist.setUserId("ADMIN1");
 		

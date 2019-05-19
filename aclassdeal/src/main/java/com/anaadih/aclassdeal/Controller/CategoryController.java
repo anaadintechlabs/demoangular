@@ -39,7 +39,6 @@ public class CategoryController {
 	@RequestMapping(value="/saveCategory",method=RequestMethod.POST)
 	public Map<String,Object> saveCategory(@RequestBody @Valid CategoryModel category,Errors errors,HttpServletRequest request,HttpServletResponse response)
 	{
-		System.out.println("Inside save category");
 		final HashMap<String, Object> map = new HashMap<>();
 		if(errors.hasErrors())
 		{
@@ -57,7 +56,6 @@ public class CategoryController {
 			@RequestParam(value="offset")int offset,
 			HttpServletRequest request,HttpServletResponse response)
 	{
-		System.out.println("Inside save category");
 		final HashMap<String, Object> map = new HashMap<>();
 
 		map.put("categoryList", categoryService.getAllCategories(limit,offset));

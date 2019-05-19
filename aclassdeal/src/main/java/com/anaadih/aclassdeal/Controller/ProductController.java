@@ -73,16 +73,13 @@ public class ProductController {
 	{
 		final HashMap<String, Object> map = new HashMap<>();
 		int i=files.length;
-		System.out.println("No of images"+i);
 		ObjectMapper objMapper= new ObjectMapper();
 		TypeReference<ProductModel> mapType= new TypeReference<ProductModel>() {
 		};
 		ProductModel product= objMapper.readValue(productString, mapType);
-		System.out.println("PRODUCT FROM MAP ISIS "+product);
 		HashMap<String ,String> mappings=product.getAttributes();
 		product=productService.saveProduct(product);
 		map.put("product",product);
-		System.out.println("product saved"+product);
 		productAttributeService.saveMapping(product.getProdId(), mappings, product.getUserId());
 		
 		//product with no photo
@@ -108,7 +105,6 @@ public class ProductController {
 	public Map<String,Object> getAllProducts(@RequestParam(value="limit")int limit,
 			@RequestParam(value="offset")int offset,
 			HttpServletRequest request,HttpServletResponse response){
-		System.out.println("Get all Products");
 		final HashMap<String, Object> map = new HashMap<>();
 		map.put("productList", productService.getAllProducts(limit,offset));
 		return CommonResponseSender.createdSuccessResponse(map, response);
@@ -125,7 +121,7 @@ public class ProductController {
 	
 	@RequestMapping(value="/getProductById",method=RequestMethod.GET)
 	public Map<String,Object> getProductById(@RequestParam(value="prodId")String prodId,HttpServletRequest request,HttpServletResponse response){
-		System.out.println("Get Product By id");
+		
 		final HashMap<String, Object> map = new HashMap<>();
 		map.put("product", productService.getProductById(Integer.parseInt(prodId)));
 		return CommonResponseSender.createdSuccessResponse(map, response);
@@ -146,7 +142,6 @@ public class ProductController {
 	public Map<String,Object> getAllPendingProducts(@RequestParam(value="limit")int limit,
 			@RequestParam(value="offset")int offset,
 			HttpServletRequest request,HttpServletResponse response){
-		System.out.println("Get all Products");
 		final HashMap<String, Object> map = new HashMap<>();
 		map.put("pendingProductList", productService.getAllPendingProducts(limit,offset));
 		return CommonResponseSender.createdSuccessResponse(map, response);
@@ -167,7 +162,6 @@ public class ProductController {
 	public Map<String,Object> getAllProductsDashboard(@RequestParam(value="limit")int limit,
 			@RequestParam(value="offset")int offset,
 			HttpServletRequest request,HttpServletResponse response){
-		System.out.println("Get all Products");
 		final HashMap<String, Object> map = new HashMap<>();
 		map.put("productList", productService.getAllProducts(limit,offset));
 		return CommonResponseSender.createdSuccessResponse(map, response);
@@ -185,7 +179,6 @@ public class ProductController {
 	@RequestMapping(value="/approveProduct",method=RequestMethod.GET)
 	public Map<String,Object> approveProduct(@RequestParam (value = "Ids") List<Integer> Ids,
 			HttpServletRequest request,HttpServletResponse response){
-		System.out.println("Approved all Products");
 		final HashMap<String, Object> map = new HashMap<>();
 		productService.approveProduct(Ids);
 		map.put("product", "Approved");

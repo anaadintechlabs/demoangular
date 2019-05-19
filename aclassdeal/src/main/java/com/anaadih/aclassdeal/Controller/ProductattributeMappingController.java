@@ -42,7 +42,6 @@ public class ProductattributeMappingController {
 	public Map<String,Object> addAttributeMapping(@RequestParam (value="prodId") String prodId,@RequestBody @Valid HashMap<String,String> mappings,Errors errors,HttpServletRequest request,HttpServletResponse response)
 	{
 		String userId="";
-		System.out.println("Inside addAttributeMapping");
 		final HashMap<String, Object> map = new HashMap<>();
 		if(errors.hasErrors())
 		{
@@ -56,7 +55,6 @@ public class ProductattributeMappingController {
 	public Map<String,Object> getAttributeMapping(@RequestParam (value="prodId") String prodId,@RequestBody @Valid HashMap<String,String> mappings,Errors errors,HttpServletRequest request,HttpServletResponse response)
 	{
 		String userId="";
-		System.out.println("Inside addAttributeMapping");
 		final HashMap<String, Object> map = new HashMap<>();
 		if(errors.hasErrors())
 		{
