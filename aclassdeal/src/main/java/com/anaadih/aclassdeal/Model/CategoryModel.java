@@ -30,6 +30,8 @@ public class CategoryModel {
 	
 	private boolean allowBidding;
 	
+	private int minimumAmount;
+	
 	private Date createdDate;
 	
 	private Date modifiedDate;
@@ -51,6 +53,14 @@ public class CategoryModel {
 	
 	
 	
+	public int getMinimumAmount() {
+		return minimumAmount;
+	}
+
+	public void setMinimumAmount(int minimumAmount) {
+		this.minimumAmount = minimumAmount;
+	}
+
 	public boolean isAllowBidding() {
 		return allowBidding;
 	}

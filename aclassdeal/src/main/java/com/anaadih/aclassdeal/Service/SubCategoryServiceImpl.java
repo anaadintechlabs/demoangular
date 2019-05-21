@@ -20,13 +20,14 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 	
 	
 	@Override
-	public SubCategoryModel saveSubCategory(@Valid SubCategoryModel subCategory) {
-		if(subCategoryRepository.existsById(subCategory.getCatCode())) {
-			System.out.println("Duplicate Record");
-		}
-		else {
+	public SubCategoryModel saveSubCategory(SubCategoryModel subCategory) {
+		System.out.println("SUB CATEGORY IS"+subCategory);
+//		if(subCategoryRepository.existsById(subCategory.getCatCode())) {
+//			System.out.println("Duplicate Record");
+//		}
+//		else {
 			subCategoryRepository.save(subCategory);
-		}
+	//	}
 		//it iwill be changed
 		return new SubCategoryModel();
 	}

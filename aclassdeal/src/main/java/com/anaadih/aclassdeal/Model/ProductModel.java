@@ -78,11 +78,23 @@ public class ProductModel {
 		
 		private String model;
 		
+		//Check for allow user to visible/hide number to other user on  positng adds
+		private boolean allowNumber;
 		
 		@Transient
 		private HashMap<String, String> attributes;
 		
 
+		
+
+		public boolean isAllowNumber() {
+			return allowNumber;
+		}
+
+
+		public void setAllowNumber(boolean allowNumber) {
+			this.allowNumber = allowNumber;
+		}
 
 
 		public String getMainImage() {
