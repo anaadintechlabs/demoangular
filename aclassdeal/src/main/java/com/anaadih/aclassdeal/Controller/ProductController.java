@@ -106,7 +106,7 @@ public class ProductController {
 			@RequestParam(value="offset")int offset,
 			HttpServletRequest request,HttpServletResponse response){
 		final HashMap<String, Object> map = new HashMap<>();
-		map.put("productList", productService.getAllProducts(limit,offset));
+		map.put("productList", productService.getAllProducts(limit,offset-1));
 		return CommonResponseSender.createdSuccessResponse(map, response);
 	}
 	
@@ -185,5 +185,14 @@ public class ProductController {
 		return CommonResponseSender.createdSuccessResponse(map, response);
 	}
 	
+	
+	@RequestMapping(value="/getAllDetailsOfProduct",method=RequestMethod.GET)
+	public Map<String,Object> getAllDetailsOfProduct(@RequestParam (value = "prodId") Integer prodId,
+			HttpServletRequest request,HttpServletResponse response){
+		 HashMap<String, Object> map = new HashMap<>();
+		map=productService.getAllDetailsOfProduct(prodId);
+		
+		return CommonResponseSender.createdSuccessResponse(map, response);
+	}
 	
 }

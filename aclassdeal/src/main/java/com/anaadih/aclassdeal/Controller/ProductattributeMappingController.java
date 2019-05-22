@@ -51,16 +51,13 @@ public class ProductattributeMappingController {
 		return CommonResponseSender.createdSuccessResponse(map, response);
 	}
 	
-	@RequestMapping(value="/getAttributeMapping",method=RequestMethod.POST)
-	public Map<String,Object> getAttributeMapping(@RequestParam (value="prodId") String prodId,@RequestBody @Valid HashMap<String,String> mappings,Errors errors,HttpServletRequest request,HttpServletResponse response)
+	@RequestMapping(value="/getAllAttributeOfProduct",method=RequestMethod.GET)
+	public Map<String,Object> getAllAttributeOfProduct(@RequestParam (value="prodId") Integer prodId,HttpServletRequest request,HttpServletResponse response)
 	{
 		String userId="";
 		final HashMap<String, Object> map = new HashMap<>();
-		if(errors.hasErrors())
-		{
-			return (Map<String, Object>) map.put("error", "Something went wrong");
-		}
-		map.put("mappings", productattrService.getMapping(prodId,userId));
+
+		//map.put("attributes", productattrService.getAllAttributeOfProduct(prodId));
 		return CommonResponseSender.createdSuccessResponse(map, response);
 	}
 	

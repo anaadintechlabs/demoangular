@@ -1,5 +1,6 @@
 package com.anaadih.aclassdeal.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -21,4 +22,6 @@ public interface productService {
 	List<ProductModel> getAllPendingProducts(int limit, int offset);
 
 	void approveProduct(List<Integer> ids);
+
+	HashMap<String, Object> getAllDetailsOfProduct(Integer prodId);
 }

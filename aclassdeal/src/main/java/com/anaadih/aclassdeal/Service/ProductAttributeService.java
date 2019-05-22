@@ -14,6 +14,9 @@ public interface ProductAttributeService {
 
 	Object saveMapping(int prodId, HashMap<String, String> mappings,String userId);
 
- List<ProductattributeMapping> getMapping(String prodId, String userId);
+	List<ProductattributeMapping> getMapping(String prodId, String userId);
+
+ 	List<ProductattributeMapping> getAllAttributeOfProduct(Integer prodId);
+
 
 }

@@ -19,9 +19,11 @@ public class ProductattributeMapping {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int sno;
 	
-	private long prodId;
+	private int prodId;
 	
 	private long attributeId;
+	
+	private String attributeName;
 	
 
 	private String attributeValue;
@@ -38,12 +40,21 @@ public class ProductattributeMapping {
 		this.sno = sno;
 	}
 
-	public long getProdId() {
+	
+	public int getProdId() {
 		return prodId;
 	}
 
-	public void setProdId(long prodId) {
+	public void setProdId(int prodId) {
 		this.prodId = prodId;
+	}
+
+	public String getAttributeName() {
+		return attributeName;
+	}
+
+	public void setAttributeName(String attributeName) {
+		this.attributeName = attributeName;
 	}
 
 	public long getAttributeId() {

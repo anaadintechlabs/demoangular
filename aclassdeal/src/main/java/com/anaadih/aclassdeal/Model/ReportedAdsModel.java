@@ -24,6 +24,7 @@ public class ReportedAdsModel {
 	@ManyToOne
 	private ProductModel productId;
 	
+	private String description;
 	
 	private String  reportedBy;
 	
@@ -37,7 +38,7 @@ public class ReportedAdsModel {
 	
 	private boolean status;
 	
-	private String description;
+	private String comment;
 
 
 	@PrePersist
@@ -46,6 +47,14 @@ public class ReportedAdsModel {
 		this.setUploadedBy("USER1");
 		this.setReportDate(new Date());
 		this.setStatus(true);
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	public int getReportedId() {

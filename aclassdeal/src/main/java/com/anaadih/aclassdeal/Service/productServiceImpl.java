@@ -1,6 +1,8 @@
 package com.anaadih.aclassdeal.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.anaadih.aclassdeal.Model.CategoryModel;
 import com.anaadih.aclassdeal.Model.ProductModel;
+import com.anaadih.aclassdeal.Model.ProductattributeMapping;
 import com.anaadih.aclassdeal.Repository.ProductRepository;
 
 
@@ -21,6 +24,9 @@ public class productServiceImpl implements productService{
 
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private ProductAttributeService productAttributeService;
 	
 	@Override
 	public ProductModel saveProduct(ProductModel product) {
@@ -31,7 +37,7 @@ public class productServiceImpl implements productService{
 	@Override
 	public List<ProductModel> getAllProducts(int limit, int offset) {
 		//Sending Pageable Interface instead of PageRequest due to this error
-//		At least 2 parameter(s) provided but only 1 parameter(s) present in query.
+//		At least 2 parameter(s) provided but only 1 parameter(s) present in query.x`x`
 		Pageable pg=PageRequest.of(offset,limit, new Sort(Direction.ASC,"modifiedDate"));
 		Page<ProductModel> page= productRepository.findByStatus("APPROVED",pg);
 		return page.getContent();
@@ -61,6 +67,20 @@ public class productServiceImpl implements productService{
 	public void approveProduct(List<Integer> ids) {
 		System.out.println("ID"+ids);
 		productRepository.approveProduct(ids);
+	}
+
+	@Override
+	public HashMap<String, Object> getAllDetailsOfProduct(Integer prodId) {
+		HashMap<String, Object> map = new HashMap<>();
+		Optional<ProductModel> model =  productRepository.findById(prodId);
+		if(model.isPresent()) {			
+			map.put("product", model.get());			
+		}
+		List<ProductattributeMapping> productAttributes=productAttributeService.getAllAttributeOfProduct(prodId);
+		if(productAttributes!=null && productAttributes.size()>0) {
+			map.put("attributes", productAttributes);
+		}
+		return map;
 	}
 
 }
