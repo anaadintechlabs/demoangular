@@ -47,6 +47,12 @@ public class CategoryServiceImpl implements CategoryService{
 		map.put("catCount", catCount);
 		return map;
 	}
+
+
+	@Override
+	public long getCountOfAllCategories() {
+		return categoryRepository.count();
+	}
 	
 	
 }

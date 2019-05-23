@@ -57,12 +57,15 @@ public class CategoryController {
 			HttpServletRequest request,HttpServletResponse response)
 	{
 		final HashMap<String, Object> map = new HashMap<>();
-
+		//First Page is 0th index
+		offset=offset-1;
 		map.put("categoryList", categoryService.getAllCategories(limit,offset));
-
+		map.put("count",categoryService.getCountOfAllCategories());
 		return CommonResponseSender.createdSuccessResponse(map, response);
 		
 	}
+	
+	
 	
 	
 	@RequestMapping(value="/getAllSubCategoryAndAttributeOfCategoryCode",method=RequestMethod.GET)

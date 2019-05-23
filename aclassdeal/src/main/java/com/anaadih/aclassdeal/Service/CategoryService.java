@@ -16,4 +16,6 @@ public interface CategoryService {
 
 	HashMap<String,Object> getAllCategorywithCount(int limit, int offset);
 
+	long getCountOfAllCategories();
+
 }

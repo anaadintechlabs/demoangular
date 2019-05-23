@@ -2,6 +2,7 @@ package com.anaadih.aclassdeal.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +21,24 @@ public class WishlistServiceImpl implements WishlistService {
 	private productService productService;
 	
 	@Override
-	public WishlistModel addWishlist(String prodId, String userId) {
+	public HashMap<String, Object> addWishlist(String prodId, String userId) {
+		HashMap<String, Object> map = new HashMap<>();
 		WishlistModel wishlist = new WishlistModel();
 		WishlistModel previousAdded=wishlistRepository.findByUserIdAndProdIdProdId(userId,Integer.parseInt(prodId));
 		if(previousAdded!=null) {
-			System.out.println("Already Added");
+			map.put("msg", "Already Added to wishlist");
+			map.put("type", "Warning!");
+			return map;
 		}
 		wishlist.setProdId(productService.getProductById(Integer.parseInt(prodId)));
-		wishlist.setUserId("ADMIN1");
+		wishlist.setUserId(userId);
 		
 		wishlist.setStatus(true);
-		return wishlistRepository.save(wishlist);
+		 wishlistRepository.save(wishlist);
+		 map.put("msg", "Product Added to wishlist");
+		 map.put("type", "Success");
+		 return map;
+		 
 	}
 
 	@Override

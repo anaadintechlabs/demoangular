@@ -49,10 +49,9 @@ public class WishlistController {
 	public Map<String,Object> addtoWishlist(@RequestParam (value="prodId") String prodId,HttpServletRequest request,HttpServletResponse response)
 	{
 		System.out.println("Inside add wishlist");
-		final HashMap<String, Object> map = new HashMap<>();
-        
-		String userId = "";   // By session  for temporary u can do it with parameter
-		map.put("wishlist", wislistService.addWishlist(prodId,userId));
+		HashMap<String, Object> map = new HashMap<>();      
+		String userId = "ADMIN1";   // By session  for temporary u can do it with parameter
+		map= wislistService.addWishlist(prodId,userId);
 		return CommonResponseSender.createdSuccessResponse(map, response);
 		
 	}
@@ -66,9 +65,7 @@ public class WishlistController {
 	@RequestMapping(value="/getallWishlist",method=RequestMethod.GET)
 	public Map<String,Object> getallWishlist(HttpServletRequest request,HttpServletResponse response)
 	{
-		System.out.println("Inside get wishlist");
 		final HashMap<String, Object> map = new HashMap<>();
-
 		String userId = "ADMIN1";   // By session  for temporary u can do it with parameter
 		map.put("wishlist", wislistService.getallWishlist(userId));
 		return CommonResponseSender.createdSuccessResponse(map, response);
